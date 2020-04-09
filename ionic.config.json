@@ -1,5 +1,7 @@
 {
   "name": "Ttstest",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
