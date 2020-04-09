@@ -1,14 +1,78 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
+  <div style="width: 100vw; text-align: center">
+      <img src="assets/logo.jpeg" />
+  </div>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+    <div style="background-image: linear-gradient(white, darksalmon) !important; height: 100vh; padding-top:15px;">
+        <div style="text-align: center; padding-bottom: 20px; padding-top: 5vh;" >
+            <div style=" margin: auto; text-align: center; width: 80vw; font-size: 60px; color: black; border-radius: 10px; background: white" *ngIf="calibrated === true">
+                <div style="text-align: center; font-size:20px;">
+                    Translation
+                </div>
+                <ion-input type="text" [(ngModel)]='text' (ionChange)='setText($event.target.value)' style="height: 40vh" >
+
+                </ion-input>
+
+            </div>
+        </div>
+
+
+        <div *ngIf="connected === false" style="--background: transparent; display:inline-block; text-align: center; padding-left:10px">
+            <button ion-button (click)="listDevices()" style="color: black; --background: white">
+                <ion-icon name="refresh"></ion-icon>&nbsp;Refresh Bluetooth Devices
+            </button>
+            <div style="padding-left: 10px; display:inline-block;"></div>
+            <button ion-button *ngIf="listToggle" (click)="selectDevice()" style="color: black; --background: white">
+                <ion-icon name="bluetooth"></ion-icon>&nbsp;Connect Bluetooth Devices
+            </button>
+        </div>
+        <div *ngIf="connected === false" style="--background: transparent;">
+
+            <ion-list radio-group [(ngModel)]="pairedDeviceID" *ngIf="listToggle" style="color: black; --background: transparent">
+                <ion-item *ngFor="let i of pairedList;let j=index" style="color: black; --background: transparent">
+                    <ion-label>{{i.name}}</ion-label>
+                    <ion-radio value="{{j}}"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </div>
+    
+        <div style="text-align:center">
+            <ion-button *ngIf="connected === true && calibrated === true" (click)="startCalib()">
+                Re-Calibrate
+            </ion-button>
+        </div>
+
+        <div *ngIf="calibrated === false && connected === true " style="height: 70vh;">
+            <div>
+                Calibration
+            </div>
+            <ion-button (click)="startCalib()" *ngIf="calibratedstart1 === false && calibratedstart2 === false">
+                Start Calibration
+            </ion-button>
+            <ion-item *ngIf="calibratedstart1 === true"> Hold your hand out, with your fingers extended pointed towards the sky as shown  </ion-item>
+            <ion-item *ngIf="calibratedstart1 === true">
+                <ion-spinner name="crescent" style="text-align: center"></ion-spinner>
+            </ion-item>
+            <ion-item *ngIf="calibratedstart1 === true">
+                <img src="assets/openhand.jpg" style="height: 30vh; text-align: center" />
+            </ion-item>
+            <ion-item *ngIf="calibratedstart2 === true"> Hold your hand out in a fist as shown  </ion-item>
+            <ion-item *ngIf="calibratedstart2 === true">
+                <ion-spinner name="crescent" style="text-align: center"></ion-spinner>
+            </ion-item>
+            <ion-item *ngIf="calibratedstart2 === true">
+                <img src="assets/closehand.jpg" style="height: 30vh; text-align: center" />
+            </ion-item>
+            <ion-item *ngIf="(calibrated===false)">
+                {{this.calCount}}
+            </ion-item>
+            <ion-button (click)="startCalib()" *ngIf="(calibrated===true)">
+                Re-Calibrate
+            </ion-button>
+
+        </div>
+    </div>
+
 </ion-content>
