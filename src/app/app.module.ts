@@ -8,6 +8,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +17,9 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
-    SplashScreen,
+      SplashScreen,
+      TextToSpeech,
+    BluetoothSerial,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
